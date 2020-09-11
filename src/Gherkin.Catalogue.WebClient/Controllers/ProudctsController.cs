@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Newtonsoft.Json;
+using Gherkin.Catalogue.Core;
 
 namespace Gherkin.Catalogue.WebClient.Controllers
 {
@@ -38,7 +39,7 @@ namespace Gherkin.Catalogue.WebClient.Controllers
         }
 
         [HttpGet]
-        [AuthorizeForScopes(Scopes = new[] { "api://AzureDemo.ProtectedProductApi/Products.View.All" })]
+        [AuthorizeForScopes(ScopeKeySection = "ProductApiScopes")]
         public async Task<IActionResult> Index()
         {
             var accessToken = await GetAccessTokenForProductsApi();
@@ -67,6 +68,7 @@ namespace Gherkin.Catalogue.WebClient.Controllers
             var accessToken = string.Empty;
             try
             {
+                
                 accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(_productApiSettings.Scopes, _azureAdSettings.TenantId);
             }
             catch (MsalUiRequiredException ex)

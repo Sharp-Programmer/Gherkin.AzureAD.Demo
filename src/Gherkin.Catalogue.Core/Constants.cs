@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices.ComTypes;
 
-namespace Gherkin.Catalogue.WebClient.Models
+namespace Gherkin.Catalogue.Core
 {
     public class Constants
     {

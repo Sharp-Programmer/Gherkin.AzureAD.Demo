@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Gherkin.Catalogue.Core;
 using Gherkin.Catalogue.WebClient.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -41,7 +42,7 @@ namespace Gherkin.Catalogue.WebClient
             var azureAdSettings = Configuration.GetSection(Constants.AzureAdConfigSectionName).Get<AzureAdSettings>();
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
-                .EnableTokenAcquisitionToCallDownstreamApi(new []{Constants.ScopeUserRead})
+                .EnableTokenAcquisitionToCallDownstreamApi(productApi.Scopes)
                 .AddInMemoryTokenCaches();
 
             
@@ -88,6 +89,8 @@ namespace Gherkin.Catalogue.WebClient
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }
