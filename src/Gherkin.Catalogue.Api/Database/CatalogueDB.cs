@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Gherkin.Catalogue.Core;
+using System.Collections.Generic;
 
 namespace Gherkin.Catalogue.Api.Database
 {
