@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>41a15526-020c-4f77-be6f-99d34c864cc1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.14.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="0.3.1-preview" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="0.3.1-preview" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+</Project>
