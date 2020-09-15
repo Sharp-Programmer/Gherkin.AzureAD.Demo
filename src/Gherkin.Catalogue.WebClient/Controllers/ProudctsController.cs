@@ -60,7 +60,7 @@ namespace Gherkin.Catalogue.WebClient.Controllers
                 return View(produtcts);
             }
 
-            return View("Error");
+            return new RedirectToActionResult("Error", "Home", null);
         }
 
         private async Task<string> GetAccessTokenForProductsApi()
@@ -68,7 +68,6 @@ namespace Gherkin.Catalogue.WebClient.Controllers
             var accessToken = string.Empty;
             try
             {
-                
                 accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(_productApiSettings.Scopes, _azureAdSettings.TenantId);
             }
             catch (MsalUiRequiredException ex)
