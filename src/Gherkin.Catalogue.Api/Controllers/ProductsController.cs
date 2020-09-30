@@ -17,8 +17,14 @@ namespace Gherkin.Catalogue.Api.Controllers
         [HttpGet("get")]
         public IActionResult GetAll()
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(new [] { "Products.View.All" });
-            
+            HttpContext.VerifyUserHasAnyAcceptedScope(new[] { "Products.View.All" });
+            return Ok(CatalogueDb.Products);
+        }
+
+        [Authorize(Roles = "Products.Get.All")]
+        [HttpGet("get_for_app")]
+        public IActionResult GetAllForApp()
+        {
             return Ok(CatalogueDb.Products);
         }
     }
