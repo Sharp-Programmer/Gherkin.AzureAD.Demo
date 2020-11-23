@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using static Gherkin.Catalogue.Core.Constants;
 
 namespace Gherkin.Catalogue.WebClient
 {
@@ -26,27 +27,25 @@ namespace Gherkin.Catalogue.WebClient
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.Configure<AzureAdSettings>(Configuration.GetSection(Constants.AzureAdConfigSectionName));
+            services.Configure<AzureAdSettings>(Configuration.GetSection(AzureAdConfigSectionName));
             
-            services.Configure<ProductApiSettings>(Configuration.GetSection(Constants.ProductApiConfigSectionName));
+            services.Configure<ProductApiSettings>(Configuration.GetSection(ProductApiConfigSectionName));
             
-            var productApi = Configuration.GetSection(Constants.ProductApiConfigSectionName).Get<ProductApiSettings>();
+            var productApi = Configuration.GetSection(ProductApiConfigSectionName).Get<ProductApiSettings>();
 
-            var azureAdSettings = Configuration.GetSection(Constants.AzureAdConfigSectionName).Get<AzureAdSettings>();
+            var azureAdSettings = Configuration.GetSection(AzureAdConfigSectionName).Get<AzureAdSettings>();
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
-                .EnableTokenAcquisitionToCallDownstreamApi(productApi.Scopes)
+                .EnableTokenAcquisitionToCallDownstreamApi( productApi.Scopes)
                 .AddInMemoryTokenCaches();
-
             
             services.AddDistributedMemoryCache();
 
-            services.AddHttpClient(Constants.ProductClientName, client =>
+            services.AddHttpClient(ProductClientName, client =>
             {
                 client.BaseAddress = new Uri(productApi.Url);
             });
             
-
             services.AddRazorPages().AddMvcOptions(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()

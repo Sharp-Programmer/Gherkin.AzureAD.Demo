@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Graph;
+
 
 namespace Gherkin.Catalogue.WebClient.Models
 {

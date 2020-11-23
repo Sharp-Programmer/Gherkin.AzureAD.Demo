@@ -21,7 +21,7 @@ namespace Gherkin.Catalogue.Api.Controllers
             return Ok(CatalogueDb.Products);
         }
 
-        [Authorize(Roles = "Products.Get.All")]
+        [Authorize(Roles = "Products.read.all")]
         [HttpGet("get_for_app")]
         public IActionResult GetAllForApp()
         {

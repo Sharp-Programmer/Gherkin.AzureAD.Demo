@@ -16,6 +16,7 @@ using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Newtonsoft.Json;
 using Gherkin.Catalogue.Core;
+using static Gherkin.Catalogue.Core.Constants;
 
 namespace Gherkin.Catalogue.WebClient.Controllers
 {
@@ -23,6 +24,7 @@ namespace Gherkin.Catalogue.WebClient.Controllers
     public class ProudctsController : Controller
     {
         private readonly ITokenAcquisition _tokenAcquisition;
+        private readonly IDownstreamWebApi _downstreamWebApi;
         private readonly HttpClient _httpClient;
         private readonly AzureAdSettings _azureAdSettings;
         private readonly ProductApiSettings _productApiSettings;
@@ -33,7 +35,7 @@ namespace Gherkin.Catalogue.WebClient.Controllers
                                     IOptionsMonitor<ProductApiSettings> productOptionsMonitor)
         {
             _tokenAcquisition = tokAcquisition;
-            _httpClient = httpClientFactory.CreateClient(Constants.ProductClientName);
+            _httpClient = httpClientFactory.CreateClient(ProductClientName);
             _azureAdSettings = azureAdSettingsOptionsMonitor.CurrentValue;
             _productApiSettings = productOptionsMonitor.CurrentValue;
         }
@@ -46,10 +48,10 @@ namespace Gherkin.Catalogue.WebClient.Controllers
 
             if (string.IsNullOrEmpty(accessToken))
             {
-                return new JsonErrorResult((int) HttpStatusCode.Unauthorized, new ErrorResult("Acquire token interactively"));
+                return new JsonErrorResult((int)HttpStatusCode.Unauthorized, new ErrorResult("Acquire token interactively"));
             }
 
-            _httpClient.DefaultRequestHeaders.Authorization=new AuthenticationHeaderValue(Constants.Bearer, accessToken);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(Bearer, accessToken);
             var productsResponse = await _httpClient.GetAsync(_productApiSettings.Url);
 
             if (productsResponse.IsSuccessStatusCode)
