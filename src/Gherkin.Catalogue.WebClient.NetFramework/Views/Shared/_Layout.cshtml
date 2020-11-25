@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarTogglerDemo01">
+                @Html.ActionLink("Product Demo app", "Index", "Home", null, new { @class = "navbar-brand" })
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                <text>
+                    @*<li class="nav-item">@Html.ActionLink("Read Mail", "ReadMail", "Home")</li>
+        <li class="nav-item">@Html.ActionLink("Send Mail", "SendMail", "Home")</li>*@
+                    <li class="nav-item">@Html.ActionLink("View Products", "Index", "Products")</li>
+                </text>}
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
